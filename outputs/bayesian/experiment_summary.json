@@ -1,0 +1,173 @@
+{
+  "algorithm": "MultinomialNB",
+  "selection_metric": "validation positive-class F1, then macro-F1",
+  "seed": 42,
+  "split_fractions": {
+    "train": 0.6000000000000001,
+    "validation": 0.2,
+    "test": 0.2
+  },
+  "original_rows": 8934,
+  "synthetic_train_rows": 1066,
+  "split_counts": {
+    "train": 5360,
+    "validation": 1787,
+    "test": 1787
+  },
+  "selected_experiment_before_test": "original_only",
+  "best_validation_per_experiment": [
+    {
+      "experiment": "original_only",
+      "features": "char_wb_3_5",
+      "alpha": 0.1,
+      "fit_rows": 5360,
+      "fit_seconds": 0.40121599996928126,
+      "accuracy": 0.9781757134862898,
+      "precision_1": 0.9595278246205734,
+      "recall_1": 0.9743150684931506,
+      "f1_1": 0.9668649107901445,
+      "macro_f1": 0.9752972864338707
+    },
+    {
+      "experiment": "with_synthetic",
+      "features": "char_wb_3_5",
+      "alpha": 0.1,
+      "fit_rows": 6426,
+      "fit_seconds": 0.5168527000350878,
+      "accuracy": 0.9641857862339116,
+      "precision_1": 0.9391891891891891,
+      "recall_1": 0.952054794520548,
+      "f1_1": 0.9455782312925171,
+      "macro_f1": 0.9594446619348324
+    }
+  ],
+  "test_metrics": [
+    {
+      "experiment": "original_only",
+      "accuracy": 0.978735310576385,
+      "precision_1": 0.955,
+      "recall_1": 0.9811643835616438,
+      "f1_1": 0.9679054054054054,
+      "macro_f1": 0.9760029119077236,
+      "refit_seconds": 0.503915400011465,
+      "test_predict_seconds": 0.10059490002458915
+    },
+    {
+      "experiment": "with_synthetic",
+      "accuracy": 0.9681029658645776,
+      "precision_1": 0.9398998330550918,
+      "recall_1": 0.964041095890411,
+      "f1_1": 0.9518174133558749,
+      "macro_f1": 0.963989007807172,
+      "refit_seconds": 0.590259300020989,
+      "test_predict_seconds": 0.10002920002443716
+    },
+    {
+      "experiment": "majority_baseline",
+      "accuracy": 0.6731952993844432,
+      "precision_1": 0.0,
+      "recall_1": 0.0,
+      "f1_1": 0.0,
+      "macro_f1": 0.4023411371237458,
+      "refit_seconds": null,
+      "test_predict_seconds": null
+    }
+  ],
+  "classification_reports": {
+    "original_only": {
+      "0: nonjudi (asumsi)": {
+        "precision": 0.9907329401853412,
+        "recall": 0.9775561097256857,
+        "f1-score": 0.9841004184100418,
+        "support": 1203.0
+      },
+      "1: promosi judi (asumsi)": {
+        "precision": 0.955,
+        "recall": 0.9811643835616438,
+        "f1-score": 0.9679054054054054,
+        "support": 584.0
+      },
+      "accuracy": 0.978735310576385,
+      "macro avg": {
+        "precision": 0.9728664700926706,
+        "recall": 0.9793602466436648,
+        "f1-score": 0.9760029119077236,
+        "support": 1787.0
+      },
+      "weighted avg": {
+        "precision": 0.9790552473659572,
+        "recall": 0.978735310576385,
+        "f1-score": 0.9788078120335965,
+        "support": 1787.0
+      }
+    },
+    "with_synthetic": {
+      "0: nonjudi (asumsi)": {
+        "precision": 0.9823232323232324,
+        "recall": 0.970074812967581,
+        "f1-score": 0.9761606022584692,
+        "support": 1203.0
+      },
+      "1: promosi judi (asumsi)": {
+        "precision": 0.9398998330550918,
+        "recall": 0.964041095890411,
+        "f1-score": 0.9518174133558749,
+        "support": 584.0
+      },
+      "accuracy": 0.9681029658645776,
+      "macro avg": {
+        "precision": 0.9611115326891622,
+        "recall": 0.967057954428996,
+        "f1-score": 0.963989007807172,
+        "support": 1787.0
+      },
+      "weighted avg": {
+        "precision": 0.9684590660263134,
+        "recall": 0.9681029658645776,
+        "f1-score": 0.9682051336971289,
+        "support": 1787.0
+      }
+    }
+  },
+  "confusion_matrices": {
+    "original_only": [
+      [
+        1176,
+        27
+      ],
+      [
+        11,
+        573
+      ]
+    ],
+    "with_synthetic": [
+      [
+        1167,
+        36
+      ],
+      [
+        21,
+        563
+      ]
+    ]
+  },
+  "source_sha256": {
+    "komentar_cleaned.csv": "5748b86c1d1d72c9e29023b8311e692f0fbebe3edc9fe556df6a5b4c75b3feb3",
+    "komentar_10000_with_synthetic.csv": "3624f73dc131499dd57fbc6195d593fb829fabba90af7a923b33944114dd8303"
+  },
+  "versions": {
+    "python": "3.14.3",
+    "sklearn": "1.8.0",
+    "pandas": "3.0.2",
+    "numpy": "2.4.4",
+    "joblib": "1.5.3"
+  },
+  "model_input": "komentar_processed; preprocessing is provided in notebook, not embedded in joblib",
+  "limitations": [
+    "label meaning and annotation process unconfirmed",
+    "random text split, not video/campaign holdout",
+    "near-duplicate templates may span splits",
+    "synthetic template shortcuts",
+    "test has not been used to select parameters; avoid iterative tuning against test"
+  ]
+}

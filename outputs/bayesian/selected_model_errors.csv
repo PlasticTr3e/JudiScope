@@ -1,0 +1,39 @@
+﻿source_row,komentar,komentar_processed,label,pred_original_only,prob_1_original_only,pred_with_synthetic,prob_1_with_synthetic,error_type
+10092,Cuma buat bikin kesel,cuma buat bikin kesel,0,1,0.6784863763362426,1,0.9578837927162,false_positive
+2823,Terimakasih,terimakasih,0,1,0.8390438125911607,1,0.834533230332435,false_positive
+7799,taunya db9 game nfs,taunya db9 game nfs,0,1,0.9109496673153357,1,0.8902428263892314,false_positive
+5018,Maksih bre,maksih bre,0,1,0.9358978983752879,1,0.8645426514764554,false_positive
+3675,"Org baru d pake, MANTAP!","org baru d pake, mantap!",0,1,0.5135867991613386,0,0.2889414681329939,false_positive
+1838,wadidaw kren bgt yak depo 50 doan jd 2jt wwk💫💫,wadidaw kren bgt yak depo 50 doan jd 2jt wwk💫💫,1,0,0.020184317662084332,0,0.02906832024316787,false_negative
+6611,akari awetnya terbaik,akari awetnya terbaik,1,0,0.4694123305505715,0,0.27541470630936826,false_negative
+1908,mantep bener,mantep bener,0,1,0.9528449177318784,1,0.8762176400753182,false_positive
+4679,Pasti seru,pasti seru,0,1,0.687603447983851,1,0.7159823127136934,false_positive
+2602,"keren banget, sukses 👍🙌🙌🙌","keren banget, sukses 👍🙌🙌🙌",0,1,0.9602268519869472,1,0.7916236188956249,false_positive
+10134,SOLID SOLID 💪🇮🇩🇮🇩,solid solid 💪🇮🇩🇮🇩,0,1,0.5446787250408961,0,0.29855171789718005,false_positive
+5347,"rumah teman , bermalam","rumah teman , bermalam",0,1,0.9908187246358647,1,0.9741470864783024,false_positive
+7916,Kasih duit,kasih duit,0,1,0.763318674248732,1,0.7656513174018227,false_positive
+5266,12.07 behh reza arap,12.07 behh reza arap,1,0,0.05657428338506682,0,0.02117188110516457,false_negative
+2118,"main sore sore pulang kerja , langsung big win","main sore sore pulang kerja , langsung big win",1,0,0.4820022378705898,0,0.12431197732079372,false_negative
+8969,Lu bener sih kalo ini,lu bener sih kalo ini,0,1,0.6854778963895819,1,0.7708110505132141,false_positive
+5030,"Wah, masak ketagihan jb5 smpai jual yg ungaran😅 😊","wah, masak ketagihan jb5 smpai jual yg ungaran😅 😊",0,1,0.645481302426965,0,0.3288201961177703,false_positive
+4183,lengkap kalo chery bikin dealer pangkalan bun .,lengkap kalo chery bikin dealer pangkalan bun .,1,0,0.07393764843981139,0,0.007946730138047246,false_negative
+6023,jangan bohong dosaa,jangan bohong dosaa,0,1,0.5469651038848294,0,0.2566434108455736,false_positive
+6771,Terimakasih bang,terimakasih bang,0,1,0.7925323672868748,1,0.7539852097403374,false_positive
+2692,Bapak kau ke pulauwin,bapak kau ke pulauwin,0,1,0.628819093296712,0,0.19299169161329807,false_positive
+9779,keren bet hasil akhirnya,keren bet hasil akhirnya,0,1,0.5281282524957727,1,0.9960862174724924,false_positive
+1967,"sepeda udah ga maen , golf","sepeda udah ga maen , golf",0,1,0.8968475304370642,1,0.8263256799197906,false_positive
+4259,Pecah layar=nyawa serasa melayang,pecah layar=nyawa serasa melayang,0,1,0.9677454208761105,1,0.9918931814297437,false_positive
+6419,abis baca review 𝐒𝐆𝐈𝟖𝟖 .,abis baca review sgi88 .,1,0,0.2489375276082124,0,0.0858154437500401,false_negative
+5853,Terima kasih bang🙏,terima kasih bang🙏,0,1,0.8475628083183935,1,0.7818093461291684,false_positive
+2794,the real sultan,the real sultan,0,1,0.5463660271752394,0,0.18533783616637464,false_positive
+5116,orang trump menang pilpres ya,orang trump menang pilpres ya,1,0,0.03126888431754356,0,0.006354018399971596,false_negative
+7308,Seriusan ni promo?,seriusan ni promo?,0,1,0.6516777954014491,1,0.6178937389316221,false_positive
+9365,Saya tidak pernah kecewa dengan apa yang diberikan oleh PulΛᴜ𝟽𝟽𝟽.,saya tidak pernah kecewa dengan apa yang diberikan oleh pulλᴜ777.,1,0,0.30923889916606684,0,0.06119354397549999,false_negative
+1086,salam kuku ireng,salam kuku ireng,1,0,0.169725240127946,0,0.06641821443518273,false_negative
+3896,bener pula 0W0 Membantah😂,bener pula 0w0 membantah😂,0,1,0.5816625027816353,0,0.26879530262343004,false_positive
+4457,uhuyy FAFFADA,uhuyy faffada,0,1,0.8038670521585275,1,0.5408138644271601,false_positive
+582,di hapus lagi link w,di hapus lagi link w,0,1,0.6111877198959215,0,0.3363571861795155,false_positive
+2240,auto emosi 😂,auto emosi 😂,0,1,0.6199276044770148,1,0.8938213668153464,false_positive
+9647,Kalem dikit lah 😂,kalem dikit lah 😂,0,1,0.7872628608270869,1,0.9979831173033341,false_positive
+3452,semoga amal ibadahnya terima sisi tuhan,semoga amal ibadahnya terima sisi tuhan,1,0,0.20615960052009508,0,0.1493856571537273,false_negative
+7009,26:36 ─═ 𝗕 𝗘 𝗥 𝗞 𝗔 𝗛 𝟵 𝟵 ═─ terus abang abangkuu,26:36 ─═ b e r k a h 9 9 ═─ terus abang abangkuu,1,0,0.3515969621349024,0,0.29355192355792536,false_negative
