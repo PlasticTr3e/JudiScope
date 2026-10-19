@@ -1,0 +1,3 @@
+﻿source_row,video_id,title,channel_name,tanggal,author,komentar,label,komentar_clean,predicted_label,label_original,komentar_processed,empty_text,invalid_label,label_conflict,status,duplicate_count
+1859,VXqMJqP7mvk,HP TERGILA yang dijual RESMI di INDONESIA! - Huawei Mate XT!,GadgetIn,2025-04-22 03:10:19+00:00,agungchocopie1403,bused mewah banget,1,bused mewah banget,1,1,bused mewah banget,False,False,True,review_label_conflict,2
+6775,VXqMJqP7mvk,HP TERGILA yang dijual RESMI di INDONESIA! - Huawei Mate XT!,GadgetIn,1.745.337.026.500.850,agungchocopie1403,bused mewah banget,0,bused mewah banget,1,0,bused mewah banget,False,False,True,review_label_conflict,2
