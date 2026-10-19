@@ -1,2 +1,135 @@
 # JudiScope
-Studi perbandingan ANN, SVM, dan Multinomial Naive Bayes untuk mendeteksi komentar promosi judi online di YouTube.
+
+Studi perbandingan **Artificial Neural Network (ANN), Support Vector Machine (SVM), dan Multinomial Naive Bayes** untuk mendeteksi komentar promosi judi online di YouTube.
+
+Proyek tugas besar pengganti UTS ini mencakup EDA, cleaning teks, augmentasi sintetis, training, evaluasi, dan analisis kesalahan. Hasil ketiga algoritma akan dibandingkan dan disusun menjadi paper. Eksperimen Bayesian sudah tersedia; hasil ANN dan SVM belum tersedia di repository ini.
+
+## Mulai dari sini
+
+1. Baca [konteks proyek](KONTEKS_PROYEK.md) untuk tujuan penelitian dan arah paper.
+2. Baca [panduan dataset tim](PANDUAN_DATASET_TIM.md) sebelum mengerjakan ANN atau SVM.
+3. Ikuti urutan notebook untuk memeriksa atau mereproduksi hasil.
+
+## Dataset
+
+Sumber awal dataset, berdasarkan informasi anggota kelompok, adalah **[Judi Online di Kaggle — `yaemico/judionline`](https://www.kaggle.com/datasets/yaemico/judionline)**. Data awal merupakan data sekunder; cleaning dan augmentasi dilakukan dalam proyek ini. Atribusi serta rincian yang belum terverifikasi dicatat di [dataset/README.md](dataset/README.md).
+
+| Tahap | Jumlah | Keterangan |
+| --- | ---: | --- |
+| File mentah lokal | 10.230 | Komentar dari 32 video dan 18 channel |
+| Hasil cleaning | 8.934 | Teks asli unik; duplikat disisihkan dan konflik label dipisahkan |
+| Tambahan sintetis | 1.066 | Komentar buatan berbasis template, khusus skenario latihan |
+| Gabungan | 10.000 | 8.934 asli bersih + 1.066 sintetis |
+
+Input model adalah `komentar_processed`, dengan target `label`. Pemetaan kerja saat ini: `0 = nonjudi`, `1 = promosi judi`. Arti label dan metode anotasi dari sumber masih perlu dikonfirmasi. **10.000 record gabungan bukan 10.000 komentar YouTube asli.**
+
+## Struktur repository
+
+```text
+JudiScope/
+├── README.md
+├── KONTEKS_PROYEK.md
+├── PANDUAN_DATASET_TIM.md
+├── requirements.txt
+├── 01_eda_cleaning.ipynb
+├── 02_dataset_generator.ipynb
+├── 03_bayesian_naive_bayes.ipynb
+├── dataset/
+│   ├── README.md
+│   └── data_komentar_dengan_prediksi - data_komentar_dengan_prediksi(2).csv
+└── outputs/
+    ├── cleaning/       # Data bersih, review, audit, dan ringkasan
+    ├── augmentation/   # Data sintetis, gabungan, dan konfigurasi generator
+    └── bayesian/       # Model, manifest split, skor, prediksi, dan grafik
+```
+
+Folder sumber menggunakan nama **`dataset`**, seluruhnya huruf kecil.
+
+## Instalasi
+
+Gunakan Python **3.11 atau lebih baru**. Eksperimen Bayesian yang disertakan dijalankan dengan Python 3.14.3 dan scikit-learn 1.8.0. Versi library utama dicatat dalam `requirements.txt` dan ringkasan eksperimen.
+
+```bash
+git clone https://github.com/atharikputra/JudiScope.git
+cd JudiScope
+python -m venv .venv
+```
+
+Aktifkan environment pada Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Pada macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Kemudian pasang dependensi dan buka JupyterLab:
+
+```bash
+python -m pip install -r requirements.txt
+python -m jupyter lab
+```
+
+Buka notebook dari folder utama repository. Alternatifnya, buka dengan VS Code dan pilih kernel Python dari `.venv`.
+
+## Urutan notebook
+
+| Notebook | Isi | Hasil utama |
+| --- | --- | --- |
+| [01 — EDA dan cleaning](01_eda_cleaning.ipynb) | Struktur data, distribusi label, panjang komentar, duplikat, konflik, lalu cleaning | `outputs/cleaning/komentar_cleaned.csv` |
+| [02 — Generator dataset](02_dataset_generator.ipynb) | Konfigurasi target dan seed, generator sintetis, preview, verifikasi, ekspor | `outputs/augmentation/komentar_synthetic_only.csv` dan CSV gabungan |
+| [03 — Bayesian](03_bayesian_naive_bayes.ipynb) | Pipeline TF-IDF + MultinomialNB, tuning, perbandingan augmentasi, evaluasi, analisis kesalahan | `outputs/bayesian/` |
+
+Jalankan sel dari atas ke bawah. File hasil sudah disertakan sehingga anggota tim dapat memakai manifest dan dataset tanpa training ulang Bayesian. Menjalankan ulang sel ekspor akan menimpa hasil dengan nama yang sama; file sumber mentah tidak ditimpa.
+
+Cleaning mempertahankan angka, tanda baca, dan emoji; menerapkan NFKC, huruf kecil, perapian karakter tak terlihat/spasi, serta penanda URL. Baseline tidak memakai stemming atau stopword removal.
+
+## Protokol perbandingan ANN, SVM, dan Bayesian
+
+Gunakan pembagian dari **`outputs/bayesian/original_split_manifest.csv`**, dengan `source_row` sebagai kunci. Jangan membuat split baru per algoritma atau membagi CSV gabungan 10.000 secara acak.
+
+| Tahap | Asli saja | Asli + sintetis |
+| --- | ---: | ---: |
+| Train untuk tuning | 5.360 | 6.426 (5.360 asli + 1.066 sintetis) |
+| Validation | 1.787 asli | 1.787 asli yang sama |
+| Refit setelah seleksi | 7.147 asli | 8.213 (7.147 asli + 1.066 sintetis) |
+| Test akhir | 1.787 asli | 1.787 asli yang sama |
+
+Parameter dan skenario dipilih berdasarkan **F1 kelas `1` pada validation**, dengan macro-F1 sebagai pemecah seri. TF-IDF hanya belajar dari bagian latihan tiap kandidat. Setelah pilihan dikunci, pipeline dilatih ulang pada train + validation dan diuji pada test asli. Komentar sintetis tidak masuk validation/test.
+
+Bandingkan accuracy, precision kelas `1`, recall kelas `1`, F1 kelas `1`, macro-F1, confusion matrix, waktu latihan, dan contoh kesalahan. Detail kode pembacaan data serta pengaturan fitur tersedia di [panduan tim](PANDUAN_DATASET_TIM.md).
+
+## Hasil awal Bayesian
+
+Evaluasi pada **1.787 komentar test asli**:
+
+| Skenario | Accuracy | Precision kelas `1` | Recall kelas `1` | F1 kelas `1` |
+| --- | ---: | ---: | ---: | ---: |
+| Asli saja | **97,87%** | **95,50%** | **98,12%** | **96,79%** |
+| Asli + sintetis | 96,81% | 93,99% | 96,40% | 95,18% |
+
+Kedua konfigurasi terbaik memakai TF-IDF karakter `char_wb` 3–5 gram dan MultinomialNB `alpha=0.1`. Skenario asli saja dipilih dari validation sebelum test. Pada eksperimen ini, tambahan sintetis menurunkan performa. Kesimpulan perbandingan tiga algoritma menunggu hasil ANN dan SVM.
+
+![Confusion matrix Bayesian tanpa dan dengan data sintetis](outputs/bayesian/confusion_matrices.png)
+
+Metrik lengkap ada di [test_metrics.csv](outputs/bayesian/test_metrics.csv), konfigurasi di [experiment_summary.json](outputs/bayesian/experiment_summary.json), dan prediksi tiap record di [test_predictions.csv](outputs/bayesian/test_predictions.csv).
+
+## Model tersimpan
+
+`outputs/bayesian/` menyertakan pipeline `.joblib` untuk kedua skenario. Pipeline mencakup TF-IDF dan classifier, tetapi menerima **teks yang sudah dibersihkan**. Untuk masukan mentah, gunakan fungsi `clean_comment` pada notebook Bayesian terlebih dahulu. Muat file joblib hanya dari sumber tepercaya.
+
+Sel kode telah dijalankan berurutan lewat Python, hasil tabel/grafik disimpan dalam notebook, dan kesamaan prediksi model setelah disimpan/dimuat ulang sudah diperiksa. Eksekusi melalui kernel Jupyter belum diverifikasi pada lingkungan pengerjaan awal.
+
+## Batas penelitian dan arah paper
+
+Split saat ini acak pada teks unik, bukan holdout video, kampanye, atau periode. Kemiripan template dapat tersebar pada bagian berbeda; skor belum membuktikan generalisasi ke sumber baru. Kualitas anotasi, versi sumber Kaggle, dan rincian lisensi dataset belum terverifikasi. Penanda demo serta template sintetis juga dapat menjadi petunjuk buatan bagi model.
+
+Hasil yang ditargetkan adalah kode eksperimen, tabel perbandingan, pembahasan kesalahan, paper, dan presentasi. Usulan judul paper:
+
+> Perbandingan ANN, SVM, dan Multinomial Naive Bayes untuk Deteksi Komentar Promosi Judi Online di YouTube
+
+Referensi sumber dataset harus dicantumkan pada paper; komentar sintetis dilaporkan terpisah sebagai buatan kelompok. Repository ini tidak menetapkan lisensi baru untuk dataset sumber.

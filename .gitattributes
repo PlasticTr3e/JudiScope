@@ -1,0 +1,11 @@
+# Teks kode/dokumentasi konsisten lintas sistem operasi.
+* text=auto
+*.md text eol=lf
+*.txt text eol=lf
+*.ipynb text eol=lf
+*.json text eol=lf
+
+# Pertahankan byte CSV agar hash sumber dan hasil cleaning tetap sama.
+*.csv -text
+*.joblib binary
+*.png binary
